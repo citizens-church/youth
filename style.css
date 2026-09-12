@@ -7,10 +7,19 @@
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   background:linear-gradient(160deg,#cdd4f4 0%,#c3c9ef 45%,#d3cbe6 100%);
-  color:var(--ink);-webkit-font-smoothing:antialiased;padding:26px 0;min-height:100vh;
+  color:var(--ink);-webkit-font-smoothing:antialiased;text-size-adjust:100%;
+  -webkit-text-size-adjust:100%;-webkit-tap-highlight-color:rgba(47,87,232,.18);
+  padding:26px 0;min-height:100svh;
 }
 .page{position:relative;max-width:880px;margin:0 auto;background:var(--bg);
   border-radius:20px;overflow:hidden;box-shadow:0 26px 60px rgba(40,40,80,.22);}
+/* On a phone the card is the whole screen: no floating margin, no rounded corners,
+   and the home-indicator gap comes off the footer instead of the page. */
+@media(max-width:620px){
+  body{padding:0;background:var(--bg);}
+  .page{border-radius:0;box-shadow:none;max-width:none;min-height:100svh;
+    padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);}
+}
 .page::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;opacity:.5;
   mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");}
@@ -18,17 +27,17 @@ body{
 @media(max-width:620px){.pad{padding:0 22px;}}
 @media(min-width:1000px){body{padding:22px 0;}.page{max-width:min(1180px,95vw);}.pad{padding:0 60px;}}
 
-.hero{position:relative;z-index:2;padding:0 0 34px;}
-.heroimg{width:100%;aspect-ratio:3/1;object-fit:cover;display:block;background:var(--deep);}
-.herotext{padding:30px 42px 0;}
-@media(max-width:620px){.herotext{padding:24px 22px 0;}}
+.hero{position:relative;z-index:2;background:var(--deep);color:#fff;
+  padding-top:env(safe-area-inset-top);}
+.herotext{padding:46px 42px 44px;}
+@media(max-width:620px){.herotext{padding:40px 22px 36px;}}
 .kicker{font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);}
-h1{font-size:clamp(2.4rem,7vw,4rem);line-height:.92;letter-spacing:-.02em;text-transform:uppercase;
-  font-weight:900;margin-top:12px;}
-h1 .accent{color:var(--cobalt);}
-.lede{margin-top:16px;font-size:1.02rem;line-height:1.55;color:#43403a;max-width:56ch;}
+h1{font-size:clamp(2.6rem,11vw,4.2rem);line-height:.9;letter-spacing:-.02em;text-transform:uppercase;
+  font-weight:900;margin-top:14px;}
+h1 .accent{color:var(--lime);}
+.lede{margin-top:18px;font-size:1.02rem;line-height:1.55;color:#cfc9dd;max-width:56ch;}
 
-.squiggle{display:block;width:100%;height:44px;margin:6px 0 0;position:relative;z-index:2;}
+.squiggle{display:block;width:100%;height:44px;margin:0;position:relative;z-index:2;}
 .squiggle path{fill:none;stroke-width:5;stroke-linecap:round;}
 
 .sec-head{margin:36px 0 18px;}
@@ -53,22 +62,22 @@ h1 .accent{color:var(--cobalt);}
 .card.c-green{border-top:8px solid var(--green);}
 
 .btn{display:block;text-align:center;margin-top:16px;background:var(--cobalt);color:#fff;text-decoration:none;
-  font-size:.98rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:15px 18px;
-  border-radius:8px;border:0;cursor:pointer;width:100%;font-family:inherit;
+  font-size:1rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:17px 18px;
+  min-height:52px;border-radius:8px;border:0;cursor:pointer;width:100%;font-family:inherit;
   box-shadow:0 8px 18px rgba(47,87,232,.28);}
 .btn:hover{background:#2547cf;}
 .btn.lime{background:var(--lime);color:#1c2b04;box-shadow:0 8px 18px rgba(0,0,0,.16);}
 .btn.lime:hover{background:#d7ff5e;}
 .btn.orange{background:var(--orange);color:#fff;box-shadow:0 8px 18px rgba(240,86,43,.28);}
 .btn.orange:hover{background:#d94820;}
-.alt{display:block;text-align:center;margin-top:10px;font-size:.8rem;color:var(--muted);
+.alt{display:block;text-align:center;margin-top:4px;padding:12px 8px;font-size:.86rem;color:var(--muted);
   text-decoration:underline;text-underline-offset:3px;}
 .alt:hover{color:var(--ink);}
 
 .pw{margin-top:16px;display:flex;gap:8px;}
 .card p{margin-bottom:6px;}
-.pw input{flex:1;min-width:0;font-family:inherit;font-size:1rem;padding:14px 14px;border-radius:8px;
-  border:1px solid var(--line);background:#fff;color:var(--ink);}
+.pw input{flex:1;min-width:0;font-family:inherit;font-size:16px;padding:15px 14px;min-height:52px;
+  border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink);}
 .pw input:focus{outline:2px solid var(--cobalt);outline-offset:1px;}
 .msg{margin-top:10px;font-size:.85rem;font-weight:700;min-height:1.2em;}
 .msg.bad{color:var(--orange);}
@@ -78,3 +87,8 @@ h1 .accent{color:var(--cobalt);}
 .help h4{font-size:.82rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
 .help ol{margin:10px 0 0 18px;font-size:.9rem;line-height:1.6;color:#54504a;}
 .foot{padding:30px 42px;font-size:.82rem;color:var(--muted);text-align:center;position:relative;z-index:2;}
+@media(max-width:620px){
+  .foot{padding:26px 22px calc(26px + env(safe-area-inset-bottom));}
+  .card .body{padding:24px 20px 22px;}
+  .help{padding:18px 20px;}
+}
